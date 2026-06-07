@@ -56,7 +56,7 @@ class PaperAssistant:
         try:
             client = self._get_client()
             if client is None:
-                return "⚠️ API 客户端未初始化，请检查 openai 库安装和 API Key 配置。"
+                return "[WARN] API 客户端未初始化，请检查 openai 库安装和 API Key 配置。"
             response = client.chat.completions.create(
                 model=DEEPSEEK_MODEL,
                 messages=messages,
@@ -66,7 +66,7 @@ class PaperAssistant:
             return response.choices[0].message.content
         except Exception as e:
             logger.error(f"API 调用失败：{e}")
-            return f"⚠️ 生成失败：{str(e)}\n请检查 API Key 配置。"
+            return f"[WARN] 生成失败：{str(e)}\n请检查 API Key 配置。"
 
     # ─────────────────────────────────────────────────────────
     # 论文框架生成
@@ -141,7 +141,7 @@ class PaperAssistant:
             章节内容（Markdown格式）
         """
         if section not in self.SECTION_PROMPTS:
-            return f"⚠️ 未知章节：{section}"
+            return f"[WARN] 未知章节：{section}"
 
         section_prompt = self.SECTION_PROMPTS[section].format(
             topic=topic, data=data or "请提供具体实验数据"

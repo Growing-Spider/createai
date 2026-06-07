@@ -96,7 +96,7 @@ def init_database():
 
     conn.commit()
     conn.close()
-    logger.info("✅ 数据库初始化完成")
+    logger.info("[OK] 数据库初始化完成")
 
 
 # ─────────────────────────────────────────────────────────────

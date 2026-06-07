@@ -49,9 +49,9 @@ class KnowledgeBaseManager:
                 embedding_function=embedding_model,
                 collection_name="fundus_knowledge",
             )
-            logger.info("✅ ChromaDB 知识库初始化成功")
+            logger.info("[OK] ChromaDB 知识库初始化成功")
         except Exception as e:
-            logger.warning(f"⚠️ ChromaDB 初始化失败，将使用关键词检索：{e}")
+            logger.warning(f"[WARN] ChromaDB 初始化失败，将使用关键词检索：{e}")
             self.vectorstore = None
 
     def add_documents_from_directory(self, directory: str) -> int:
@@ -91,7 +91,7 @@ class KnowledgeBaseManager:
 
             if self.vectorstore:
                 self.vectorstore.add_documents(chunks)
-                logger.info(f"✅ 已添加 {len(chunks)} 个文本块到知识库")
+                logger.info(f"[OK] 已添加 {len(chunks)} 个文本块到知识库")
             return len(chunks)
 
         except Exception as e:
@@ -172,7 +172,7 @@ class KnowledgeBaseManager:
             ]
             if self.vectorstore:
                 self.vectorstore.add_documents(docs)
-                logger.info(f"✅ 已添加 {len(docs)} 条内置知识")
+                logger.info(f"[OK] 已添加 {len(docs)} 条内置知识")
         except Exception as e:
             logger.error(f"添加默认知识失败：{e}")
 
@@ -335,7 +335,7 @@ class RAGChat:
             count = self.kb_manager.add_documents_from_directory(
                 str(KNOWLEDGE_BASE_DIR)
             )
-            logger.info(f"✅ 知识库初始化完成，外部文档数：{count}")
+            logger.info(f"[OK] 知识库初始化完成，外部文档数：{count}")
             return True
         except Exception as e:
             logger.error(f"知识库初始化失败：{e}")

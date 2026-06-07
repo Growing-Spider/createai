@@ -25,6 +25,15 @@ source_code/database/fundus.db
 source_code/demo_preview.html
 source_code/deploy/
 
+# PyInstaller 构建产物
+source_code/build_temp/
+source_code/build/
+dist/
+*.spec.bak
+
+# 临时文件夹
+新建文件夹/
+
 # Logs
 /tmp/
 *.log

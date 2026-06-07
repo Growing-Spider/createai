@@ -139,9 +139,9 @@ class FundusAnalyzer:
             if Path(UNET_MODEL_PATH).exists():
                 state_dict = torch.load(UNET_MODEL_PATH, map_location=self.device)
                 self.model.load_state_dict(state_dict)
-                logger.info("✅ U-Net 模型加载成功")
+                logger.info("[OK] U-Net 模型加载成功")
             else:
-                logger.warning("⚠️ 未找到预训练权重，使用随机权重（演示模式）")
+                logger.warning("[WARN] 未找到预训练权重，使用随机权重（演示模式）")
             self.model.eval()
         except Exception as e:
             logger.error(f"模型加载失败：{e}")
