@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+*.egg-info/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database (runtime)
+source_code/database/fundus.db
+
+# Demo/deploy artifacts
+source_code/demo_preview.html
+source_code/deploy/
+
+# Logs
+/tmp/
+*.log

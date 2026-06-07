@@ -1,0 +1,74 @@
+眼底图像AI基础知识库 — 核心概念摘要
+
+【视网膜解剖结构】
+视网膜（Retina）是眼球后壁的感光层，由多种神经细胞构成。主要解剖标志包括：
+1. 视盘（Optic Disc）：视神经与视网膜连接处，直径约1.5mm，呈淡黄色圆形
+2. 黄斑（Macula）：视网膜中央区域，负责精细视觉，中心有中心凹（Fovea）
+3. 视网膜血管：包括动脉和静脉，从视盘分出，分布于整个视网膜
+4. 视杯（Optic Cup）：视盘中央凹陷区域，正常杯盘比（CDR）<0.5
+
+【主要眼底疾病】
+
+1. 糖尿病视网膜病变（DR）
+   分期：无明显DR → 轻度NPDR（微动脉瘤）→ 中度NPDR（出血+渗出）→ 重度NPDR → PDR（新生血管）
+   AI诊断准确率：AUC可达0.97（Google AI 2016, Science）
+
+2. 青光眼（Glaucoma）
+   特征：视神经损害、视野缺损、眼压升高
+   关键指标：杯盘比（CDR），正常<0.5，青光眼>0.6
+   AI方法：视盘/视杯分割、CDR自动测量
+
+3. 年龄相关性黄斑变性（AMD）
+   分型：干性AMD（玻璃膜疣）、湿性AMD（脉络膜新生血管）
+   AI特征：玻璃膜疣检测、视网膜下液识别
+
+【深度学习图像分割】
+
+U-Net（2015）：
+- 编码器：逐步下采样提取特征（MaxPool）
+- 解码器：逐步上采样恢复分辨率（反卷积）
+- 跳跃连接：将编码器特征直接传递到解码器对应层
+- 优势：可用少量标注数据训练，适合医学图像
+
+评估指标：
+- Dice系数 = 2TP/(2TP+FP+FN)，范围[0,1]，越高越好
+- IoU = TP/(TP+FP+FN)，与Dice正相关
+- 敏感性（Recall）= TP/(TP+FN)，衡量真阳性率
+- AUC：ROC曲线下面积，综合评价分类性能
+
+公开数据集：
+- DRIVE（400×584, 20张训练+20张测试）
+- STARE（605×700, 20张）
+- CHASEDB1（999×960, 28张）
+
+【视网膜血管特征】
+
+1. 血管密度（Vessel Density）：正常范围0.08-0.18
+2. 分叉点（Bifurcation Points）：三条及以上血管交汇，正常眼底约200-500个
+3. 终末点（End Points）：血管末端，正常约400-1000个
+4. 平均宽度（Average Width）：主要血管3-8像素（512×512分辨率）
+5. 迂曲度（Tortuosity）：实际路径/直线距离，正常1.0-1.3，增高见于高血压DR
+6. 分形维数（Fractal Dimension）：盒计数法，正常1.5-1.7，反映网络复杂度
+
+AV比（动静脉比）：正常约0.67，增高提示高血压视网膜病变
+
+【RAG技术原理】
+
+检索增强生成（Retrieval-Augmented Generation, RAG）：
+1. 文档预处理：将文档切分为500字左右的chunks
+2. 向量嵌入：使用嵌入模型（如BGE-small-zh）将文本转为向量
+3. 向量存储：存入向量数据库（ChromaDB/Milvus/Pinecone）
+4. 相似度检索：用户提问时，检索最相关的Top-K文档片段
+5. 上下文注入：将检索结果注入到LLM提示词中
+6. 生成回答：LLM基于检索内容生成专业准确的回答
+
+优势：减少幻觉、支持私有知识、可更新知识库
+
+【参考文献方向】
+
+1. LeCun Y, Bengio Y, Hinton G. Deep learning. Nature 2015.
+2. Ronneberger O, et al. U-Net. MICCAI 2015.
+3. Gulshan V, et al. Deep learning for diabetic retinopathy. JAMA 2016.
+4. Staal J, et al. Ridge-based vessel segmentation. IEEE TMI 2004.
+5. Fraz MM, et al. Blood vessel segmentation methodologies. CMPB 2012.
+6. Lewis JR, et al. Retinal fractal analysis. Ophthalmology 2018.
