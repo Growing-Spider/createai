@@ -61,8 +61,32 @@ CUSTOM_CSS = """
 /* ── 全局 ── */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 html, body, [class*="css"] { font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
-.main { padding-top: 1rem; }
-.block-container { padding: 1.5rem 2rem; }
+
+/* ── 布局：确保 Streamlit 不裁剪内容 ── */
+header[data-testid="stHeader"] {
+    height: auto !important;
+    background: transparent !important;
+}
+div[data-testid="stAppViewContainer"] > section.main {
+    padding-top: 2.5rem !important;
+    overflow: visible !important;
+}
+section.main, .main {
+    overflow: visible !important;
+}
+div.block-container {
+    padding: 1.5rem 2rem !important;
+    overflow: visible !important;
+}
+div.stMarkdown, div.element-container,
+div[data-testid="stVerticalBlock"],
+div[data-testid="stMarkdownContainer"] {
+    overflow: visible !important;
+}
+/* emotion-cache 容器 - 仅限 main 内容区 */
+section.main div[class*="st-emotion-cache"] {
+    overflow: visible !important;
+}
 
 /* ── 全局输入组件对比度增强 ── */
 .stTextInput > div > div > input,
@@ -263,22 +287,26 @@ div[data-baseweb="popover"] li:hover {
     color: #e6edf3 !important;
 }
 
-/* ── 标题区 ── */
+/* ── 标题区：使用 Streamlit 原生 h1 渲染 ── */
+h1 {
+    color: #58a6ff !important;
+    font-size: 2.2rem !important;
+    font-weight: 700 !important;
+    line-height: 1.8 !important;
+    padding: 0.5rem 0 !important;
+    letter-spacing: 0.02em !important;
+}
 .hero-title {
     color: #58a6ff;
     font-size: 2.2rem;
     font-weight: 700;
-    line-height: 1.5;
+    line-height: 2.2;
+    margin-top: 1rem;
     margin-bottom: 0.3rem;
-    padding: 0.3rem 0;
+    padding: 0.8rem 0;
     text-shadow: 0 0 20px rgba(88, 166, 255, 0.4);
     letter-spacing: 0.02em;
-    white-space: normal;
-    overflow: visible !important;
-    display: block;
-}
-.hero-title span, .hero-title div {
-    overflow: visible !important;
+    min-height: 4.5rem;
 }
 .hero-subtitle {
     color: #8b949e;
@@ -545,7 +573,7 @@ def render_sidebar():
 # ─────────────────────────────────────────────────────────────
 
 def page_fundus_analysis():
-    st.markdown('<div class="hero-title">🔬 眼底图像智能分析</div>', unsafe_allow_html=True)
+    st.title("🔬 眼底图像智能分析")
     st.markdown('<div class="hero-subtitle">上传眼底图像，自动完成血管分割与病变识别</div>', unsafe_allow_html=True)
 
     analytics = get_learning_analytics()
@@ -774,7 +802,7 @@ def page_fundus_analysis():
 # ─────────────────────────────────────────────────────────────
 
 def page_topology_analysis():
-    st.markdown('<div class="hero-title">🌐 血管拓扑特征分析</div>', unsafe_allow_html=True)
+    st.title("🌐 血管拓扑特征分析")
     st.markdown('<div class="hero-subtitle">深度解析视网膜血管网络的结构特征</div>', unsafe_allow_html=True)
 
     if st.session_state.topology_result:
@@ -842,7 +870,7 @@ def page_topology_analysis():
 # ─────────────────────────────────────────────────────────────
 
 def page_rag_chat():
-    st.markdown('<div class="hero-title">🤖 AI 科研导师</div>', unsafe_allow_html=True)
+    st.title("🤖 AI 科研导师")
     st.markdown('<div class="hero-subtitle">基于 RAG 的专业医学知识问答，随时解答您的科研疑问</div>', unsafe_allow_html=True)
 
     analytics = get_learning_analytics()
@@ -927,7 +955,7 @@ def page_rag_chat():
 # ─────────────────────────────────────────────────────────────
 
 def page_topic_generator():
-    st.markdown('<div class="hero-title">🎯 科研选题生成器</div>', unsafe_allow_html=True)
+    st.title("🎯 科研选题生成器")
     st.markdown('<div class="hero-subtitle">AI 智能推荐个性化研究课题，助力科研起步</div>', unsafe_allow_html=True)
 
     analytics  = get_learning_analytics()
@@ -1040,7 +1068,7 @@ def page_topic_generator():
 # ─────────────────────────────────────────────────────────────
 
 def page_paper_assistant():
-    st.markdown('<div class="hero-title">📝 论文写作辅助</div>', unsafe_allow_html=True)
+    st.title("📝 论文写作辅助")
     st.markdown('<div class="hero-subtitle">AI 辅助构建论文框架，逐章节精准写作指导</div>', unsafe_allow_html=True)
 
     analytics = get_learning_analytics()
@@ -1171,7 +1199,7 @@ def page_paper_assistant():
 # ─────────────────────────────────────────────────────────────
 
 def page_learning_analytics():
-    st.markdown('<div class="hero-title">📊 学习分析</div>', unsafe_allow_html=True)
+    st.title("📊 学习分析")
     st.markdown('<div class="hero-subtitle">可视化学习行为，生成个人学习画像</div>', unsafe_allow_html=True)
 
     analytics = get_learning_analytics()
