@@ -1,33 +1,23 @@
-// slide-12.js — 科研选题生成器 + 侧边栏API配置展示 (ui_05 + ui_07)
+// slide-12.js
 const pptxgen = require("pptxgenjs");
-const path = require("path");
-
 function createSlide(pres, theme) {
   const slide = pres.addSlide();
   slide.background = { color: theme.bg };
-  slide.addShape(pres.shapes.RECTANGLE, { x: 0, y: 0, w: 10, h: 0.08, fill: { color: theme.accent } });
-
-  slide.addText("科研选题 & 侧边栏配置 — 操作界面", {
-    x: 0.5, y: 0.2, w: 9, h: 0.55,
-    fontSize: 24, fontFace: "Microsoft YaHei", color: theme.primary, bold: true
-  });
-
-  // 左图：科研选题生成器
-  slide.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.3, y: 0.9, w: 4.6, h: 4.3, fill: { color: "f0f4f8" }, rectRadius: 0.08 });
-  slide.addText("科研选题生成器", { x: 0.4, y: 0.9, w: 4.4, h: 0.32, fontSize: 11, fontFace: "Microsoft YaHei", color: "e76f51", bold: true, align: "center" });
-  try {
-    slide.addImage({ path: path.join(__dirname, "imgs/ui_07_topic.png"), x: 0.45, y: 1.28, w: 4.3, h: 3.8 });
-  } catch(e) {}
-
-  // 右图：API配置
-  slide.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 5.1, y: 0.9, w: 4.6, h: 4.3, fill: { color: "f0f4f8" }, rectRadius: 0.08 });
-  slide.addText("侧边栏 API 配置 + 知识库管理", { x: 5.2, y: 0.9, w: 4.4, h: 0.32, fontSize: 11, fontFace: "Microsoft YaHei", color: theme.secondary, bold: true, align: "center" });
-  try {
-    slide.addImage({ path: path.join(__dirname, "imgs/ui_05_api.png"), x: 5.25, y: 1.28, w: 4.3, h: 3.8 });
-  } catch(e) {}
-
-  slide.addShape(pres.shapes.OVAL, { x: 9.3, y: 5.1, w: 0.4, h: 0.4, fill: { color: theme.secondary } });
-  slide.addText("12", { x: 9.3, y: 5.1, w: 0.4, h: 0.4, fontSize: 12, fontFace: "Arial", color: "FFFFFF", bold: true, align: "center", valign: "middle" });
+  slide.background = { color: theme.primary };
+  slide.addShape(pres.shapes.OVAL, { x: -1.5, y: 3.5, w: 5, h: 5, fill: { color: theme.accent }, opacity: 0.06 });
+  slide.addShape(pres.shapes.OVAL, { x: 7.5, y: -1.5, w: 4, h: 4, fill: { color: theme.secondary }, opacity: 0.05 });
+  slide.addShape(pres.shapes.RECTANGLE, { x: 0, y: 0, w: 0.1, h: 5.625, fill: { color: theme.accent } });
+  slide.addShape(pres.shapes.RECTANGLE, { x: 0.8, y: 0.7, w: 2.2, h: 0.35, fill: { color: theme.accent }, opacity: 0.15 });
+  slide.addText("创AI案例征集 · 智能信息系统", { x: 0.8, y: 0.7, w: 2.2, h: 0.35, fontSize: 11, fontFace: "Microsoft YaHei", color: theme.accent, align: "center", valign: "middle" });
+  slide.addText("谢谢观看", { x: 0.8, y: 1.2, w: 8.5, h: 1.0, fontSize: 52, fontFace: "Microsoft YaHei", color: "FFFFFF", bold: true, align: "left", valign: "bottom" });
+  slide.addShape(pres.shapes.RECTANGLE, { x: 0.8, y: 2.3, w: 2.5, h: 0.04, fill: { color: theme.accent } });
+  slide.addText("FundusAI-Edu · 眼底图像AI教学与科研辅助平台", { x: 0.8, y: 2.6, w: 8.5, h: 0.55, fontSize: 22, fontFace: "Microsoft YaHei", color: theme.secondary, align: "left" });
+  slide.addText("案例类别: 智能信息系统  |  申报学段: 高等教育  |  适用: 高职高专/本科/硕士/博士", { x: 0.8, y: 3.4, w: 8.5, h: 0.35, fontSize: 13, fontFace: "Microsoft YaHei", color: "AAAAAA", align: "left" });
+  slide.addText("配套资源: 完整代码 + 使用手册 + 安装手册 + 开发记录 + 演示视频", { x: 0.8, y: 3.85, w: 8.5, h: 0.35, fontSize: 14, fontFace: "Microsoft YaHei", color: theme.accent, bold: true, align: "left" });
+  slide.addText("借助生成式人工智能赋能开发,跨越自身专业与技能限制,体现终身学习", { x: 0.8, y: 4.4, w: 6.5, h: 0.4, fontSize: 12, fontFace: "Microsoft YaHei", color: "888888", italic: true, align: "left" });
+  slide.addText("MIT开源许可  ·  支持复现验证  ·  2026年6月", { x: 0.8, y: 5.1, w: 5, h: 0.35, fontSize: 11, fontFace: "Microsoft YaHei", color: "667788", align: "left" });
+  slide.addShape(pres.shapes.OVAL, { x: 9.3, y: 5.1, w: 0.4, h: 0.4, fill: { color: theme.accent } });
+  slide.addText("12", { x: 9.3, y: 5.1, w: 0.4, h: 0.4, fontSize: 12, fontFace: "Arial", color: "0B1D3A", bold: true, align: "center", valign: "middle" });
   return slide;
 }
 module.exports = { createSlide };
